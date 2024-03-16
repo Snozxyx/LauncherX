@@ -1,7 +1,7 @@
 {
     "name": "launcherx",
     "preductname": "LauncherX",
-    "version": "6.0.3",
+    "version": "6.0.5",
     "main": "src/app.js",
     "author": {
         "name": "Snozxyx",
@@ -43,6 +43,6 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Snozxyx/Selvania-Launcher.git"
+        "url": "git+https://github.com/Snozxyx/LauncherX.git"
     }
 }

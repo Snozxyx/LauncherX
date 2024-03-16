@@ -590,7 +590,9 @@ class Home {
 					info.textContent = `Verifying`
 	
 					document.getElementById('btn-playee').style.backgroundImage = 'linear-gradient(145deg, var(--box-button-gradient-1) 0%, var(--box-button-gradient-2) 100%)';
-		
+					document.getElementById('btn-playee').innerHTML = '<svg viewBox="25 25 50 50">	   <circle r="20" cy="50" cx="50"></circle> </svg>	';
+					document.getElementById('btn-playee').textContent = 'Loading.. ';
+					
 					if (Resolution.screen.width == '<auto>') {
 						screen = false
 					} else {
@@ -706,9 +708,9 @@ class Home {
         document.querySelector('.settings-btn').addEventListener('click', () => {
             changePanel('settings');
         });
-        document.querySelector('.account-btn').addEventListener('click', () => {
-            changePanel('settings');
-        });
+        // document.querySelector('.account-btn').addEventListener('click', () => {
+        //     changePanel('settings');
+        // });
     }
 
     async getdate(e) {

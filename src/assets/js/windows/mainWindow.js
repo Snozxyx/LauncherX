@@ -18,8 +18,12 @@ function destroyWindow() {
 
 function setAppIcon() {
     const isDarkMode = nativeTheme.shouldUseDarkColors;
-    const iconPath = isDarkMode ? `icon${os.platform() === "win32" ? "ico" : "png"}` : `Launcher_Logo.${os.platform() === "win32" ? "ico" : "png"}`;
-    if (mainWindow) {
+    const iconPath = isDarkMode
+    ? path.join(app.getAppPath(), `/src/assets/images/icon.${os.platform() === "win32" ? "ico" : "png"}`)
+    : path.join(app.getAppPath(), `/src/assets/images/Launcher_Logo.${os.platform() === "win32" ? "ico" : "png"}`);
+  
+  console.log(iconPath);
+      if (mainWindow) {
         mainWindow.setIcon(path.resolve(__dirname, iconPath));
     }
 }

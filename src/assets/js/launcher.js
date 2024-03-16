@@ -311,7 +311,7 @@ class Launcher {
             }
             changePanel("home");
         }
-        document.querySelector(".preload-content").style.display = "none";
+        // document.querySelector(".preload-content").style.display = "none";
     }
     
 }
