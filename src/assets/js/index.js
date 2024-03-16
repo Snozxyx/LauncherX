@@ -4,9 +4,10 @@
  */
 
 'use strict';
+const { ipcRenderer } = require('electron');
 import { config } from './utils.js';
 
-const { ipcRenderer } = require('electron');
+let dev = process.env.NODE_ENV === 'dev';
 
 class Splash {
     constructor() {
@@ -47,56 +48,47 @@ class Splash {
     }
 
     async maintenanceCheck() {
-        if (process.env.NODE_ENV === 'dev') return this.startLauncher();
-        try {
-            const res = await config.GetConfig();
-            if (res.maintenance) return this.shutdown(res.maintenance_message);
-            else this.checkUpdate();
-        } catch (e) {
-            console.error(e);
-            return this.shutdown("No Internet access");
-        }
-    }
-
-    async checkUpdate() {
-        this.setStatus(`Checking for updates...`);
-        ipcRenderer.send('update-app');
-
-        ipcRenderer.on('updateAvailable', () => {
-            this.setStatus(`Update available!`);
-            this.toggleProgress();
-            ipcRenderer.send('start-update');
-        });
-
-        ipcRenderer.on('download-progress', (event, progress) => {
-            this.setProgress(progress.transferred, progress.total);
-        });
-
-        ipcRenderer.on('update-not-available', () => {
-            this.startLauncher();
-        });
-    }
-    async maintenanceCheck() {
+        if (dev) return this.startLauncher();
         config.GetConfig().then(res => {
             if (res.maintenance) return this.shutdown(res.maintenance_message);
-            this.startLauncher();
+            else this.checkUpdate();
         }).catch(e => {
             console.error(e);
             return this.shutdown("No internet connection detected,<br>please try again later.");
         })
     }
 
+    async checkUpdate() {
+        this.setStatus(`Looking for an update...`);
+        ipcRenderer.send('update-app');
+
+        ipcRenderer.on('updateAvailable', () => {
+            this.setStatus(`Update available!`);
+            this.toggleProgress();
+            ipcRenderer.send('start-update');
+        })
+
+        ipcRenderer.on('download-progress', (event, progress) => {
+            this.setProgress(progress.transferred, progress.total);
+        })
+
+        ipcRenderer.on('update-not-available', () => {
+            this.startLauncher();
+        })
+    }
+
+
     startLauncher() {
-        this.setStatus(`Starting launcher`);
+        this.setStatus(`Starting the launcher`);
         ipcRenderer.send('main-window-open');
         ipcRenderer.send('update-window-close');
     }
 
     shutdown(text) {
-        this.setStatus(`${text}<br>Shutting down in 5s`);
+        this.setStatus(`${text}<br>Shutdown in 5s`);
         let i = 4;
         setInterval(() => {
-            this.setStatus(`${text}<br>Shutting down in ${i--}s`);
+            this.setStatus(`${text}<br>Arrêt dans ${i--}s`);
             if (i < 0) ipcRenderer.send('update-window-close');
         }, 1000);
     }
@@ -116,11 +108,13 @@ class Splash {
 }
 
 function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(r => setTimeout(r, ms));
 }
+
 document.addEventListener("keydown", (e) => {
     if (e.ctrlKey && e.shiftKey && e.keyCode == 73 || e.keyCode == 123) {
         ipcRenderer.send("update-window-dev-tools");
     }
 })
+
 new Splash();

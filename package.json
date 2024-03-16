@@ -1,10 +1,10 @@
 {
     "name": "launcherx",
     "preductname": "LauncherX",
-    "version": "6.0.6",
+    "version": "6.0.7",
     "main": "src/app.js",
     "author": {
-        "name": "Snozxyx",
+        "name": "LauncherX",
         "email": "Snozxyx@tenxmc.me",
         "engines": {
             "node": "^18.x.x"
