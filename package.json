@@ -1,20 +1,22 @@
 {
-    "name": "Selvania-Launcher",
-    "preductname": "Selvania Launcher",
-    "version": "2.0.0",
-    "description": "Launcher Mincraft pour le serveur Selvania",
+    "name": "launcherx",
+    "preductname": "LauncherX",
+    "version": "6.0.2",
     "main": "src/app.js",
     "author": {
-        "name": "luuxis, Inc.",
-        "email": "contact@luuxis.fr",
-        "url": "https://github.com/luuxis"
+        "name": "Snozxyx",
+        "email": "Snozxyx@tenxmc.me",
+        "engines": {
+            "node": "^18.x.x"
+        }        
     },
-    "url": "http://launcher.luuxis.fr/launcherSelvania",
+    "settings": "https://launcher.tenxmc.me/admins",
+
     "scripts": {
         "start": "cross-env-shell NODE_ENV=dev electron .",
         "dev": "cross-env-shell DEV_TOOL=open nodemon --exec npm start",
         "build": "node build.js --obf=false --build=platform",
-        "icon": "node build.js --icon=https://raw.githubusercontent.com/luuxis/Selvania-Launcher/master/src/assets/images/icon.png"
+        "icon": "node build.js --icon=https://raw.githubusercontent.com/Snozxyx/LauncherX/master/Project%20Logo/LauncherX_logo_bg.png"
     },
     "license": "CCANC",
     "nodemonConfig": {
@@ -22,10 +24,12 @@
         "ignore": "**/test"
     },
     "dependencies": {
+        "axios": "^1.6.7",
+        "discord-rpc": "^4.0.1",
         "electron-updater": "^6.1.4",
-        "minecraft-java-core": "^3.8.1",
+        "minecraft-java-core": "^3.6.2",
         "node-bdd": "^2.0.3",
-        "node-fetch": "^2.7.0",
+        "node-fetch": "^2.6.13",
         "xml-js": "^1.6.11"
     },
     "devDependencies": {
@@ -39,6 +43,6 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/luuxis/Selvania-Launcher.git"
+        "url": "git+https://github.com/Snozxyx/Selvania-Launcher.git"
     }
 }

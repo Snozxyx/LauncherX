@@ -1,0 +1,479 @@
+
+* {
+    outline: none;
+    --background: #121212;
+    --sidebar: rgba(18,18,18,0.6);
+    --sidebar-border: rgba(49,49,49,0.6);
+    --box: #1A1A1A;
+    --box-hover: #202020;
+    --box-button: #262626;
+    --box-button-hover: #2E2E2E;
+    --box-button-gradient-1: 	#00FFFF;
+    --box-button-gradient-2: 	#0096FF;
+    --text: #E1E1E1;
+    --term: #707070;
+    --term-hover: #787878;
+    --icon-unselected: #707070;
+    --icon-hover: #787878;
+    --icon-active: #FFF;
+    --mask-gradient-1: rgba(18,18,18,0);
+    --mask-gradient-2: rgba(18,18,18,1);
+    --news-bg: #1E1E1E;
+    --bleu: #00FFFF;
+    --bleu-hover: #0096FF;
+    --button-text: #E1E1E1;
+    --avatar: #242424;
+    --header: #1A1A1A;
+    --green: #1AC707;
+    --red: #FF0409;
+    --challenger: #766791;
+    --champion: #C65126;
+    --legende: #005080;
+    --frame: #ffffff30;
+    --frame-close: #ff353560;
+    --account-delete: #B73134;
+    --account-delete-hover: #B7313420;
+    --popup-bg: #000000B0;
+    --slider: #F0F0F0;
+    --shadow: #00000029;
+    --checkbox: #FFFFFF;
+    --loading-stroke: #FFFFFF;
+}
+
+body {
+    /* user-select: none; */
+    background:  url("../images/background/background.png") scroll;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+img {
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+.dragbar {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 26px;
+    -webkit-app-region: drag;
+    z-index: 11;
+    display: none;
+}
+
+.frame {
+    background: transparent;
+    position: fixed;
+    display: table;
+    top: 0px;
+    right: 0px;
+    z-index: 11;
+    -webkit-app-region: no-drag;
+    display: none;
+}
+
+.hide {
+    display: block;
+}
+
+.button-frame {
+    position: relative;
+    display: table-cell;
+    width: 30px;
+    height: 26px;
+    transition: color .2s, background-color .2s;
+    color: black;
+    cursor: pointer;
+}
+
+.icon-close:hover {
+    background: #c71d07;
+}
+
+.icon-minimize:hover,
+.icon-restore-down:hover,
+.icon-maximize:hover {
+    background-color: #0000009d;
+}
+
+.icon-close:before,
+.icon-minimize:before,
+.icon-maximize:before,
+.icon-restore-down:before {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    width: 14px;
+    height: 14px;
+    font-size: 14px;
+    color: #f8f9f9;
+}
+
+.preload-content {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.preload-progress {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 127px;
+}
+
+.dot {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    margin-left: 14px;
+    margin-top: 12px;
+    background: #ffffff;
+    border-radius: 50%;
+    transform: translateX(0);
+    animation: dot 2.8s infinite;
+}
+
+.dots {
+    transform: translateX(0);
+    margin-top: 12px;
+    margin-left: 31px;
+    animation: dots 2.8s infinite;
+}
+
+.dots span {
+    display: block;
+    float: left;
+    width: 16px;
+    height: 16px;
+    margin-left: 16px;
+    background: #ffffff;
+    border-radius: 50%;
+}
+
+@keyframes dot {
+    50% {
+        transform: translateX(96px);
+    }
+}
+
+@keyframes dots {
+    50% {
+        transform: translateX(-31px);
+    }
+}
+
+.preload-title {
+    font: normal normal bold 30px/40px Poppins;
+    color: #E1E1E1;
+    text-align: center;
+    margin: 2em 0;
+}
+
+.panel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 0;
+    /* pointer-events: none; */
+}
+
+.active {
+    opacity: 1;
+    z-index: 1;
+    /* pointer-events: all; */
+}
+
+.rotation {
+    animation: rotation 5s infinite linear;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+.sidebar {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100px;
+    height: 100%;
+    z-index: 2;
+    background-color: var(--sidebar);
+    border-right: 1px solid var(--sidebar-border);
+    transition: all 0.2s;
+    -webkit-user-select: none;
+    border-radius: 10px;
+    background: rgba( 0, 0, 0, 0.05 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 15.5px );
+    -webkit-backdrop-filter: blur( 15.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.sidebar .box {
+    position: absolute;
+    left: 18px;
+    width: 64px;
+background: rgba( 24, 22, 22, 0.45 );
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 20px );
+-webkit-backdrop-filter: blur( 20px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );    border-radius: 20px;
+    transition: all 0.2s;
+}
+
+.sidebar .box.panels {
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.sidebar .box.game {
+    top: 25%;
+    transform: translate(0, -50%);
+}
+
+.sidebar .box.play {
+    bottom: 15px;
+}
+
+.sidebar .box.play .button.start:before {
+    content: "";
+}
+
+.sidebar .box.play .button.twoline:after {
+    content: attr(aria-label);
+    margin-top: -5px;
+    height: 50px;
+    padding-top: 10px;
+    border-radius: 32px;
+    font-weight: normal;
+}
+
+.sidebar .box.play .button .progress-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.sidebar .box .button {
+    position: relative;
+    margin: 7px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--box-button);
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 25px;
+    color: var(--icon-unselected);
+    cursor: pointer;
+    z-index: 2;
+    transition: color 0.05s, background-color 0.2s, background-image 0.2s, top 0.2s, left 0.2s, height 0.2s, opacity 0.2s, margin 0.2s;
+}
+
+.sidebar .box .button:hover {
+    color: var(--icon-hover);
+    background-color: var(--box-button-hover);
+}
+
+.sidebar .box .button:after {
+    content: attr(aria-label);
+    opacity: 0;
+    margin-left: 50px;
+    margin-top: 9px;
+    padding: 0px 20px;
+    padding-top: 5px;
+    width: max-content;
+    height: 27px;
+    font: normal normal bold 14px/21px Poppins;
+    color: var(--text);
+    background-color: var(--box-button);
+    border-radius: 16px;
+    transition: color 0.2s, opacity 0.1s, background-color 0.2s, margin-left 0.2s;
+    pointer-events: none;
+    white-space: pre;
+    display: inline-block;
+}
+
+.sidebar .box .button:hover:after {
+    margin-left: 65px;
+    opacity: 1;
+}
+
+.sidebar .box .button.icon-settings:hover:after {
+    content: "Fermer";
+}
+
+.sidebar .box .button.close:hover:after {
+    content: attr(aria-label);
+}
+
+.sidebar .box .button-active {
+    color: var(--icon-active);
+    background-color: var(--box-button-gradient-1);
+    background-image: linear-gradient(145deg, var(--box-button-gradient-1) 0%, var(--box-button-gradient-2) 100%);
+}
+
+.sidebar .box .button:before {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+}
+
+.sidebar .box .button.icon-settings:before {
+    content: "\e903";
+    top: 5px;
+    left: 5px;
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+    animation: settingsOpen 0.2s linear;
+    z-index: 2;
+}
+
+.sidebar .box .button.close:before {
+    content: "\e909";
+    top: 10px;
+    left: 10px;
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    animation: settingsClose 0.2s linear;
+}
+
+
+.account-side-img {
+    width: 100%;
+    object-fit: cover;
+    background-size: 100% 100%;
+    height: 100%;
+    /* border-radius: 25px; */
+    box-shadow: 0 0 10px var(--background);
+    transition: box-shadow 0.2s, filter 0.2s;
+}
+
+.account-side-img:hover {
+    filter: brightness(1.2);
+}
+
+.account-side-connected {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--background);
+    transition: color 0.2s, background-color 0.2s;
+    border-radius: 16px;
+}
+
+.account-side-connected.green {
+    background-color: var(--green);
+}
+
+.account-side-connected.red {
+    background-color: var(--red);
+}
+
+.account-side {
+    position: absolute;
+    top: 22px;
+    left: 25px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.account-side:after {
+        animation: pulse 2s linear infinite;
+  border: #d9cbcb5e solid 8px;
+  border-radius: 9999px;
+  box-sizing: border-box;
+  content: ' ';
+  height: 140%;
+  left: -20%;
+  opacity: .6;
+  position: absolute;
+  top: -20%;
+  width: 140%;
+  z-index: 1;
+    
+}
+
+.account-side:hover:after {
+    opacity: 1;
+}
+
+.games {
+    position: relative;
+    margin: 7px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--box-button);
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 15px;
+    color: var(--icon-unselected);
+    cursor: pointer;
+    z-index: 2;
+    transition: color 0.05s, background-color 0.2s, background-image 0.2s, top 0.2s, left 0.2s, height 0.2s, opacity 0.2s, margin 0.2s;
+}
+
+.games:after {
+    content: attr(aria-label);
+    opacity: 0;
+    margin-left: 50px;
+    margin-top: 9px;
+    padding: 0px 20px;
+    padding-top: 5px;
+    width: max-content;
+    height: 27px;
+    font: normal normal bold 14px/21px Poppins;
+    color: var(--text);
+    background-color: var(--box-button);
+    border-radius: 16px;
+    transition: color 0.2s, opacity 0.1s, background-color 0.2s, margin-left 0.2s;
+    pointer-events: none;
+    white-space: pre;
+    display: inline-block;
+}
+
+.games:hover {
+    color: var(--icon-hover);
+    background-color: var(--box-button-hover);
+}
+
+.games:hover:after {
+    margin-left: 65px;
+    opacity: 1;
+}
+#progressBar {
+    width: 100%;
+    height: 30px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    display: none; /* Initially hidden */
+  }
+
+  #progress {
+    width: 0;
+    height: 100%;
+    background-color: #4caf50;
+  }

@@ -1,0 +1,51 @@
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/panels/mods.css">
+
+
+    <!-- <link rel="stylesheet" href="../assets/css/launcher.css"> -->
+
+</head>
+<body>
+    <div class="dragbar"></div>
+    <div class="frame">
+        <div id="minimize" class="button-frame icon-minimize"></div>
+        <div id="maximize" class="button-frame icon-maximize"></div>
+        <div id="close" class="button-frame icon-close"></div>
+    </div>
+    
+    <video autoplay muted loop id="myVideo">
+        <source src="../assets/images/gif/cherry-leaves.1920x1080.mp4" type="video/mp4">
+      </video>
+      <div class="box panels">
+
+      <div id="home" aria-label="Home" class=" button icon-home save-tabs-btn"></div>
+      <div aria-label="Settings" class="button-active settings-btn button icon-settings close"></div>
+      <div aria-label="Accounts" class="settings-btn button icon-user tab-btn active-tab-btn default-tab-btn "></div>
+      <div aria-label="Java" class="settings-btn button icon-hammer tab-btn "></div>
+      <div aria-label="Launcher" class="settings-btn button icon-folder tab-btn   "></div>
+      <div class="save">
+        <div class="box play" onclick="history.back()">
+            <div aria-label="Save" class="button icon-check save-tabs-btn1" style="color: green;"></div>
+          </div>
+          </div>
+
+    </div>
+<div class="glassophobic-container">
+
+</div>
+    <div class="container ">
+      
+       
+          
+        <h1 style="        font-family: Verdana, Geneva, Tahoma, sans-serif;     " >Mod Manager</h1>
+        <div id="mods-list" ></div>
+       
+    </div>
+    <script src="../assets/js/panels/mods.js"></script>
+    <script src="../assets/js/launcher.js" type="module">  
+
+    </script>
+</body>

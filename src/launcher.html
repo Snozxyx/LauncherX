@@ -1,27 +1,90 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
-        <link rel="stylesheet" href="assets/css/launcher.css">
-    </head>
-    <body class="dfvf">
-        <div class="dragbar"></div>
-        <div class="frame">
-            <div id="minimize" class="button-frame icon-minimize"></div>
-            <div id="maximize" class="button-frame icon-maximize"></div>
-            <div id="close" class="button-frame icon-close"></div>
-        </div>
+<head>
+    <meta charset="UTF-8">
+<link rel="stylesheet" href="assets/css/launcher.css">
 
-        <div class="popup">
-            <div class="popup-tab">
-                <div class="popup-title"></div>
-                <div class="popup-content"></div>
-                <div class="popup-options">
-                    <button class="popup-button">OK</button>
-                </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+<body class="dfvf">
+    <div class="dragbar"></div>
+    <div class="frame">
+        <div id="minimize" class="button-frame icon-minimize"></div>
+        <div id="maximize" class="button-frame icon-maximize"></div>
+        <div id="close" class="button-frame icon-close"></div>
+    </div>
+    
+    <div class="log-bg">
+        <div class="log">
+          <div class="log-close icon-close"></div>
+          <div class="log-content">
+            <div class="titlev">Console</div>
+            <div class="logger" id="launcher">
+              <div class="header">
+                <div class="icon icon-memory"></div>
+                <div class="type">Logs Launcher</div>
+                <div class="expand icon-expand"></div>
+              </div>
+              <div class="content"></div>
+            </div>
+            <div class="logger" id="minecraft">
+              <div class="header">
+                <div class="icon icon-memory"></div>
+                <div class="type">Logs Minecraft</div>
+                <div class="expand icon-expand"></div>
+              </div>
+              <div class="content"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="loader_bg"><center>
+      <svg viewBox="25 25 50 50">
+        <circle r="20" cy="50" cx="50"></circle>
+      </svg></center>
+        <!-- <div class="loader"></div> -->
+    </div>
+    <div class="popup">
+        <div class="popup-tab">
+            <div class="popup-title"></div>
+            <div class="popup-content"></div>
+            <div class="popup-options">
+                <i class="fa-solid fa-xmark popup-button"></i>
+                <div class="progress"></div>
+
             </div>
         </div>
-        <div class="panels"></div>
-        <script src="assets/js/launcher.js" type="module"></script>
-    </body>
+    </div>
+    <div class="panels"></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="assets/js/launcher.js" type="module">  
+    </script>
+    <script src="https://kit.fontawesome.com/b8bbbef2b7.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="module">
+        setTimeout(function(){
+            $('.loader_bg').fadeToggle();
+        }, 1500);
+	    
+	</script>
+<script type="module">
+    
+ $(function() {
+setTimeout(function() { $("#loader").fadeOut(1500); }, 5000)
+$(window).on('load',function(){
+            $(".loader").fadeOut(1000);
+            $(".content").fadeIn(1000);
+        });
+})
+function myFunc() {
+            setTimeout(function () {
+                $('#loader').fadeOut('fast');
+            }, 1000);}
+</script>
+</body>
 </html>

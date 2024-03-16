@@ -1,29 +1,33 @@
-/**
- * @author Luuxis
- * @license CC-BY-NC 4.0 - https://creativecommons.org/licenses/by-nc/4.0
- */
-
-const { app, BrowserWindow, Menu } = require("electron");
+const { app, BrowserWindow, Menu, nativeTheme, ipcMain } = require("electron");
 const path = require("path");
 const os = require("os");
-const pkg = require("../../../../package.json");
-let dev = process.env.DEV_TOOL === 'open';
+
 let mainWindow = undefined;
+let dev = process.env.DEV_TOOL === 'open';
 
 function getWindow() {
     return mainWindow;
 }
 
 function destroyWindow() {
-    if (!mainWindow) return;
-    app.quit();
-    mainWindow = undefined;
+    if (mainWindow) {
+        mainWindow.destroy();
+        mainWindow = undefined;
+    }
+}
+
+function setAppIcon() {
+    const isDarkMode = nativeTheme.shouldUseDarkColors;
+    const iconPath = isDarkMode ? `icon${os.platform() === "win32" ? "ico" : "png"}` : `Launcher_Logo.${os.platform() === "win32" ? "ico" : "png"}`;
+    if (mainWindow) {
+        mainWindow.setIcon(path.resolve(__dirname, iconPath));
+    }
 }
 
 function createWindow() {
     destroyWindow();
     mainWindow = new BrowserWindow({
-        title: pkg.preductname,
+        title: "LauncherX",
         width: 1280,
         height: 720,
         minWidth: 980,
@@ -42,11 +46,20 @@ function createWindow() {
     mainWindow.loadFile(path.join(`${app.getAppPath()}/src/launcher.html`));
     mainWindow.once('ready-to-show', () => {
         if (mainWindow) {
-            if (dev) mainWindow.webContents.openDevTools({ mode: 'detach' })
-            mainWindow.show()
+            if (dev) mainWindow.webContents.openDevTools({ mode: 'detach' });
+            mainWindow.show();
         }
     });
+
+    setAppIcon();
+    nativeTheme.on('updated', setAppIcon);
 }
+
+// Toggling between dark mode and light mode
+ipcMain.on('toggle-mode', () => {
+    const newTheme = nativeTheme.shouldUseDarkColors ? 'light' : 'dark';
+    nativeTheme.themeSource = newTheme;
+});
 
 module.exports = {
     getWindow,
