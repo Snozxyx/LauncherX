@@ -7,43 +7,60 @@ const pkg = require('../package.json');
 const fetch = require("node-fetch");
 const convert = require("xml-js");
 
-let settings_url = pkg.user ? `${pkg.settings}/${pkg.user}` : pkg.settings;
+// let settings_url = pkg.user ? `${pkg.settings}/${pkg.user}` : pkg.settings;
 let config = `${settings_url}/utils/api`;
 
 class Config {
     GetConfig() {
         return new Promise((resolve, reject) => {
-            fetch(config)
-                .then((config) => {
-                    return resolve(config.json());
-                })
-                .catch((error) => {
-                    document.querySelector('.loader_bg').innerHTML = 'Connection Failed';
-                    return reject(error);
-                });
-        });
+            fetch(config).then(config => {
+                return resolve(config.json());
+            }).catch(error => {
+                return reject(error);
+            })
+        })
     }
-
     async GetNews() {
-        try {
-            this.config = await this.GetConfig();
-            let url = `${this.config.azauth}/api`;
-            let newsUrl = `https://raw.githubusercontent.com/Snozxyx/essentials/main/launcher/news.json`;
-            let news = await fetch(newsUrl);
-            if (news.status === 200) {
-                try {
-                    let newsData = await news.json();
-                    return newsData;
-                } catch (error) {
-                    return false;
+        this.config = await this.GetConfig().then(res => res);
+        let news = `${this.config.azauth}/api/rss`
+        let rss = await fetch(news).then(res => res.text());
+        let rssparse = JSON.parse(convert.xml2json(rss, { compact: true }));
+        let data = [];
+    
+        // Vérifier si des articles sont disponibles
+        if (rssparse.rss.channel.item) {
+            // Si c'est un tableau, parcourir chaque élément
+            if (Array.isArray(rssparse.rss.channel.item)) {
+                for (let i of rssparse.rss.channel.item) {
+                    let item = {}
+                    item.title = i.title._text;
+                    item.content = i['content:encoded']._text;
+                    item.author = i['dc:creator']._text;
+                    item.publish_date = i.pubDate._text;
+                    data.push(item);
                 }
             } else {
-                return false;
+                // Sinon, il n'y a qu'un seul article, traitez-le comme un tableau
+                let item = {}
+                item.title = rssparse.rss.channel.item.title._text;
+                item.content = rssparse.rss.channel.item['content:encoded']._text;
+                item.author = rssparse.rss.channel.item['dc:creator']._text;
+                item.publish_date = rssparse.rss.channel.item.pubDate._text;
+                data.push(item);
             }
-        } catch (error) {
-            return false;
+        } else {
+            // Aucun article disponible, ajoutez un message ou faites autre chose
+            data.push({
+                title: "No items available",
+                content: "No articles were found.",
+                author: "News",
+                publish_date: "2024"
+            });
         }
+    
+        return data;
     }
+    
 }
 
-export default new Config();
+export default new Config;

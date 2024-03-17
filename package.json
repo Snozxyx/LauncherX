@@ -1,7 +1,7 @@
 {
     "name": "launcherx",
     "preductname": "LauncherX",
-    "version": "6.0.7",
+    "version": "6.0.8",
     "main": "src/app.js",
     "author": {
         "name": "LauncherX",

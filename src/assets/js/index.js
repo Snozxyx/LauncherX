@@ -88,7 +88,7 @@ class Splash {
         this.setStatus(`${text}<br>Shutdown in 5s`);
         let i = 4;
         setInterval(() => {
-            this.setStatus(`${text}<br>Arrêt dans ${i--}s`);
+            this.setStatus(`${text}<br>Stop in${i--}s`);
             if (i < 0) ipcRenderer.send('update-window-close');
         }, 1000);
     }
