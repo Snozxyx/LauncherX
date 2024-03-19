@@ -48,6 +48,9 @@ body {
     background-repeat: no-repeat;
     overflow: hidden;
 }
+.locked{
+    cursor: not-allowed;
+}
 
 img {
     -webkit-user-drag: none;

@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="../assets/css/panels/info.css">
+  <!-- <link rel="stylesheet" href="../assets/css/panels/mods.css"> -->
+  <div class="dragbar"></div>
+  <div class="frame">
+      <div id="minimize" class="button-frame icon-minimize"></div>
+      <div id="maximize" class="button-frame icon-maximize"></div>
+      <div id="close" class="button-frame icon-close"></div>
+  </div>
+  
+  <video autoplay muted loop id="myVideo">
+      <source src="../assets/images/gif/cherry-leaves.1920x1080.mp4" type="video/mp4">
+    </video>
+    <div class="box panels">
+
+    <div id="home" aria-label="Home" class=" button icon-home save-tabs-btn"></div>
+    <div aria-label="Settings" class="button-active settings-btn button icon-settings close"></div>
+    <div aria-label="Accounts" class="settings-btn button icon-user tab-btn active-tab-btn default-tab-btn "></div>
+    <div aria-label="Java" class="settings-btn button icon-hammer tab-btn "></div>
+    <div aria-label="Launcher" class="settings-btn button icon-folder tab-btn   "></div>
+    <div class="save">
+      <div class="box play" onclick="history.back()">
+          <div aria-label="Save" class="button icon-check save-tabs-btn1" style="color: green;"></div>
+        </div>
+        </div>
+
+  </div>
+  <div class="container">
+    <h1>App Information</h1>
+    <div class="infos" id="info"></div>
+    <p>ID: <span id="fixedID"></span></p>
+    <!-- Add buttons for manual update check and update download -->
+    <div id="updateStatus"></div>
+    <button id="checkForUpdatesButton">Check for Updates</button>
+    <button id="updateButton">Check for Updates</button>
+
+    <button id="downloadUpdateButton" style="display: none;">Download Update</button>
+
+    <!-- Display area for update status -->
+    <!-- <div id="updateStatus"></div> -->
+
+    <!-- Display area for fixed ID -->
+</div>
+
+
+
+  <script src="../assets/js/panels/info.js"></script>

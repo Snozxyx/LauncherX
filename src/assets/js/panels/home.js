@@ -592,6 +592,7 @@ class Home {
 					document.getElementById('btn-playee').style.backgroundImage = 'linear-gradient(145deg, var(--box-button-gradient-1) 0%, var(--box-button-gradient-2) 100%)';
 					document.getElementById('btn-playee').innerHTML = '<svg viewBox="25 25 50 50">	   <circle r="20" cy="50" cx="50"></circle> </svg>	';
 					document.getElementById('btn-playee').textContent = 'Loading.. ';
+					document.getElementById('btn-playee').style.cursor = 'not-allowed';
 					
 					if (Resolution.screen.width == '<auto>') {
 						screen = false
@@ -667,7 +668,7 @@ class Home {
 					launch.on('close', code => {
 						if (launcherSettings.launcher.close === 'close-launcher') ipcRenderer.send("main-window-show");
 						info.textContent = `Join`
-						document.getElementById('btn-playee').style.cssText = '';
+						document.getElementById('btn-playee').style.cssText = 'On the way..';
 						new logger('Launcher', '#7289da');
 						console.log('Close');
 					});
@@ -733,4 +734,5 @@ class Home {
 //         playerNameHeading.textContent = playerName;
 //     }
 // }
+
 export default Home;

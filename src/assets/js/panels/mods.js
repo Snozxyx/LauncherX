@@ -219,15 +219,17 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
-
+const dataDirectory = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + '/Library/Application Support' : process.env.HOME)
 const modsDirectory = path.join(process.env.APPDATA, '.launcherx', 'mods');
 let lockedFiles = [];
 let modData = {};
 
 // Load mod data from configuration file
+class mods {
+    static id = "mods";}
 async function loadModDataFromConfig() {
     try {
-        const response = await axios.get('https://raw.githubusercontent.com/Snozxyx/essentials/main/launcher/new_mods.json');
+        const response = await axios.get('https://raw.githubusercontent.com/Snozxyx/essentials/main/launcher%20/mod.json');
         lockedFiles = response.data.lockedFiles || [];
         modData = response.data.mods || {};
         console.log('Mod data loaded:', lockedFiles, modData);
@@ -255,6 +257,8 @@ function loadMods() {
 
         const unlockedMods = [];
         const lockedMods = [];
+        const clientCoreMods = []; // New array for client core mods
+
 
         files.forEach(file => {
             if (path.extname(file) === '.jar') {
@@ -293,20 +297,31 @@ function loadMods() {
                     unlockedMods.push(modItem);
                 } else {
                     modItem.classList.add('locked');
-                    lockedMods.push(modItem);
+                    if (lockedFiles.includes(file) && modData[modName]?.category === 'clientCore') {
+                        // Add to client core mods if locked and belong to client core category
+                        clientCoreMods.push(modItem);
+                    } else {
+                        lockedMods.push(modItem);
+                    }
                 }
             }
         });
 
         const unlockedSection = document.createElement('div');
         unlockedSection.classList.add('mod-section');
-        unlockedSection.innerHTML = '<h2>OptionalMods</h2>';
+        unlockedSection.innerHTML = '<h2>Optional Mods</h2>';
         unlockedMods.forEach(modItem => unlockedSection.appendChild(modItem));
         modsList.appendChild(unlockedSection);
 
+        const clientCoreSection = document.createElement('div');
+        clientCoreSection.classList.add('mod-section');
+        clientCoreSection.innerHTML = '<h2>Client Core Mods</h2>';
+        clientCoreMods.forEach(modItem => clientCoreSection.appendChild(modItem));
+        modsList.appendChild(clientCoreSection);
+
         const lockedSection = document.createElement('div');
         lockedSection.classList.add('mod-section');
-        lockedSection.innerHTML = '<h2>Core Mods</h2>';
+        lockedSection.innerHTML = '<h2>Locked Mods</h2>';
         lockedMods.forEach(modItem => lockedSection.appendChild(modItem));
         modsList.appendChild(lockedSection);
     });
@@ -338,7 +353,7 @@ window.onload = async () => {
     loadMods();
 };
 
-// Event delegation to handle clicks on mod items
+// Event delegation to handle clicks on mod itsems
 document.getElementById('mods-list').addEventListener('click', (event) => {
     const modItem = event.target.closest('.mod');
     if (modItem) {

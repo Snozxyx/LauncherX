@@ -316,4 +316,3 @@ class Launcher {
     
 }
 new Launcher().init();
-

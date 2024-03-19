@@ -1,17 +1,16 @@
 {
     "name": "launcherx",
     "preductname": "LauncherX",
-    "version": "6.0.8",
+    "version": "6.0.7",
     "main": "src/app.js",
     "author": {
         "name": "LauncherX",
         "email": "Snozxyx@tenxmc.me",
         "engines": {
             "node": "^18.x.x"
-        }        
+        }
     },
     "settings": "https://launcher.tenxmc.me/admins",
-
     "scripts": {
         "start": "cross-env-shell NODE_ENV=dev electron .",
         "dev": "cross-env-shell DEV_TOOL=open nodemon --exec npm start",
@@ -30,6 +29,7 @@
         "minecraft-java-core": "^3.6.2",
         "node-bdd": "^2.0.3",
         "node-fetch": "^2.6.13",
+        "os": "^0.1.2",
         "xml-js": "^1.6.11"
     },
     "devDependencies": {

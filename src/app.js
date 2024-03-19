@@ -7,6 +7,7 @@ const { app, ipcMain, nativeTheme } = require('electron');
 const { Microsoft } = require('minecraft-java-core');
 const { autoUpdater } = require('electron-updater')
 
+
 const path = require('path');
 const fs = require('fs');
 
@@ -18,6 +19,8 @@ const {  BrowserWindow, shell, dialog } = require('electron/main')
 let dev = process.env.NODE_ENV === 'dev';
 
 let mainWindow
+const {  protocol, net } = require('electron')
+
 
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
@@ -218,7 +221,11 @@ setInterval(() => {
 //         });
 //     });
 // });
-
+// app.setAsDefaultProtocolClient('launcherx');
+// app.on('open-url', (event, url) => {
+//     event.preventDefault();
+//     mainWindow.webContents.send('deep-link', url);
+// });
 
 // Handle window controls via IPC
 ipcMain.on('shell:open', () => {
