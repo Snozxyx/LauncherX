@@ -419,6 +419,7 @@
 }
 
 .name-big {
+    position: relative;
     color: #fff;
     font: normal normal bold 30px/40px Poppins;
     font-size: 3rem;
@@ -430,6 +431,7 @@
 }
 
 .body-header .play {
+        position: relative;
     display: inline-block;
     height: 40px;
     margin-top: 18px;

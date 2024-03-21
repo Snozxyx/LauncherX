@@ -1,7 +1,7 @@
 {
     "name": "launcherx",
     "preductname": "LauncherX",
-    "version": "6.0.7",
+    "version": "6.0.9",
     "main": "src/app.js",
     "author": {
         "name": "LauncherX",
@@ -10,7 +10,7 @@
             "node": "^18.x.x"
         }
     },
-    "settings": "https://launcher.tenxmc.me/admins",
+    "settings": "https://api.tenxmc.me/",
     "scripts": {
         "start": "cross-env-shell NODE_ENV=dev electron .",
         "dev": "cross-env-shell DEV_TOOL=open nodemon --exec npm start",
@@ -26,15 +26,18 @@
         "axios": "^1.6.7",
         "discord-rpc": "^4.0.1",
         "electron-updater": "^6.1.4",
-        "minecraft-java-core": "^3.6.2",
+        "minecraft-java-core": "^3.6.4",
         "node-bdd": "^2.0.3",
         "node-fetch": "^2.6.13",
         "os": "^0.1.2",
-        "xml-js": "^1.6.11"
+        "xml-js": "^1.6.11",
+        "https": "^1.0.0"
+
+
     },
     "devDependencies": {
         "cross-env": "^7.0.3",
-        "electron": "^27.0.4",
+        "electron": "^22.3.24",
         "electron-builder": "^24.6.4",
         "javascript-obfuscator": "^4.1.0",
         "jimp": "^0.22.10",

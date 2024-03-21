@@ -124,34 +124,69 @@
       </div>
       
   </div> --> 
-  <style class="bodyimg"></style>
+
+ <head>
+    <title>LauncherX</title>
+ </head>
+  <div class="panels">   
 
   <video autoplay muted loop id="myVideo">
     <source src="./assets/images/gif/cherry-leaves.1920x1080.mp4" type="video/mp4">
   </video>
-
-  <div class="panels">   
-  <div class="body-header">
- 
-
-    </div>
-  </div>
-  
   <div class="home-content">
-    <div class="play icon-play play-btn" id="play-btn">Join</div>
+    <style class="bodyimg"></style>
+    <div class="body-header">
+      <h1 class="name-big">LauncherX</h1>
+  
+      <div class="play icon-play play-btn" id="play-btn">Join</div>
+    
+          
+      </div>
+    </div>
     <div class="body-home-stats">
-        <div class="info-list">
+        <!-- <div class="info-list">
             <div class="info-item">
                 <div class="server">
-                    <img class="server-img" src="https://raw.githubusercontent.com/Snozxyx/essentials/main/Logo/tenxwulogo.png"/>
-                    <div class="server-text">
-                        <div class="name">Offline</div>
-                        <div class="desc"><span class="red">Closed</span></div>
-                    </div>
-                    <div class="etat-text">
-                        <div class="text">0</div>
-                        <div class="online off"></div>
-                    </div>
+                    <a href="https://status.tenxmc.me" target="_blank">
+                        <img class="server-img" src="https://raw.githubusercontent.com/Snozxyx/essentials/main/Logo/tenxwulogo.png"/>
+                        <div class="server-text">
+                            <div class="name">Offline</div>
+                            <div class="desc"><span class="red">Closed</span></div>
+                        </div>
+                        <div class="etat-text">
+                            <div class="text">0</div>
+                            <div class="online off"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    
+                    <!-- <Voir la page de statut des serveurs</div> -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    async function checkServerStatus() {
+        try {
+            const response = await fetch('https://api.mcstatus.io/v2/status/java/play.tenxmc.me');
+            const data = await response.json();
+
+            if (data.online) {
+                document.querySelector('.name').textContent = 'Online';
+                document.querySelector('.desc .red').textContent = 'Open';
+                document.querySelector('.online').classList.remove('off');
+                document.querySelector('.online').classList.add('on');
+                document.querySelector('.text').textContent = data.players.online;
+            }
+        } catch (error) {
+            console.error('Error fetching server status:', error);
+        }
+    }
+
+    // Call the function to check server status
+    checkServerStatus();
+});
+</script>
             </div>
         </div>
         

@@ -526,7 +526,11 @@ class Home {
 		    .catch(error => {
 		        console.error('Error fetching changelog:', error);
 		    });
+			
+			
 		}
+		
+		
 
 		async bkgrole () {
 			let uuid = (await this.database.get('1234', 'accounts-selected')).value;
@@ -587,13 +591,9 @@ class Home {
 					let info = document.querySelector(".play-btn")
 	
 	
-					info.textContent = `Verifying`
+					info.textContent = `Verifying...`
 	
 					document.getElementById('btn-playee').style.backgroundImage = 'linear-gradient(145deg, var(--box-button-gradient-1) 0%, var(--box-button-gradient-2) 100%)';
-					document.getElementById('btn-playee').innerHTML = '<svg viewBox="25 25 50 50">	   <circle r="20" cy="50" cx="50"></circle> </svg>	';
-					document.getElementById('btn-playee').textContent = 'Loading.. ';
-					document.getElementById('btn-playee').style.cursor = 'not-allowed';
-					
 					if (Resolution.screen.width == '<auto>') {
 						screen = false
 					} else {
@@ -633,12 +633,12 @@ class Home {
 					});
 		
 					launch.on('progress', (progress, size) => {
-						document.querySelector(".play-btn").textContent = `Downloading ${((progress / size) * 100).toFixed(0)}%`
+						document.querySelector(".play-btn").textContent = `Downloading.... ${((progress / size) * 100).toFixed(0)}%`
 						ipcRenderer.send('main-window-progress', { progress, size })
 					});
 		
 					launch.on('check', (progress, size) => {
-						document.querySelector(".play-btn").textContent = `Verification ${((progress / size) * 100).toFixed(0)}%`
+						document.querySelector(".play-btn").textContent = `Verifying... ${((progress / size) * 100).toFixed(0)}%`
 					});
 		
 					launch.on('estimated', (time) => {
@@ -661,14 +661,14 @@ class Home {
 						new logger('Minecraft', '#36b030');
 						if (launcherSettings.launcher.close === 'close-launcher') ipcRenderer.send("main-window-hide");
 						ipcRenderer.send('main-window-progress-reset')
-						info.textContent = `Starting up...`
+						info.textContent = `Starting up..`
 						console.log(e);
 					})
 		
 					launch.on('close', code => {
 						if (launcherSettings.launcher.close === 'close-launcher') ipcRenderer.send("main-window-show");
-						info.textContent = `Join`
-						document.getElementById('btn-playee').style.cssText = 'On the way..';
+						info.textContent = `Play`
+						document.getElementById('btn-playee').style.cssText = '';
 						new logger('Launcher', '#7289da');
 						console.log('Close');
 					});
@@ -678,29 +678,30 @@ class Home {
 					});
 				});
 			});
+	
 		}
-	async initStatusServer() {
-        let nameServer = document.querySelector('.server-text .name');
-        let serverMs = document.querySelector('.server-text .desc');
-        let playersConnected = document.querySelector('.etat-text .text');
-        let online = document.querySelector(".etat-text .online");
-        let serverPing = await new Status(this.config.status.ip, this.config.status.port).getStatus();
-
-        if (!serverPing.error) {
-            nameServer.textContent = this.config.status.nameServer;
-            serverMs.innerHTML = `<span class="green">Operational</span> - ${serverPing.ms}ms`;
-            online.classList.toggle("off");
-            playersConnected.textContent = serverPing.playersConnect;
-        } else if (serverPing.error) {
-            nameServer.textContent = 'Server unavailable';
-            serverMs.innerHTML = `<span class="red">Offline</span>`;
-        }
+		async initStatusServer() {
+			let nameServer = document.querySelector('.server-text .name');
+			let serverMs = document.querySelector('.server-text .desc');
+			let playersConnected = document.querySelector('.etat-text .text');
+			let online = document.querySelector(".etat-text .online");
+			let serverPing = await new Status(this.config.status.ip, this.config.status.port).getStatus();
+	
+			if (!serverPing.error) {
+				nameServer.textContent = this.config.status.nameServer;
+				serverMs.innerHTML = `<span class="green">Online</span> - ${serverPing.ms}ms`;
+				online.classList.toggle("off");
+				playersConnected.textContent = serverPing.playersConnect;
+			} else if (serverPing.error) {
+				nameServer.textContent = 'Server Unavailaible';
+				serverMs.innerHTML = `<span class="red">Hors ligne</span>`;
+			}
     }
 
-    initLinks(){
+	initLinks(){
         let status = document.querySelector(".status");
         status.addEventListener("click", () => {
-            require('electron').shell.openExternal("https://tenxmc.me");
+            require('electron').shell.openExternal("https://status.tenxmc.me");
         });
 
       }
@@ -709,10 +710,11 @@ class Home {
         document.querySelector('.settings-btn').addEventListener('click', () => {
             changePanel('settings');
         });
-        // document.querySelector('.account-btn').addEventListener('click', () => {
-        //     changePanel('settings');
-        // });
+        document.querySelector('.account-btn').addEventListener('click', () => {
+            changePanel('settings');
+        });
     }
+
 
     async getdate(e) {
         let date = new Date(e)
@@ -736,3 +738,24 @@ class Home {
 // }
 
 export default Home;
+// document.addEventListener('DOMContentLoaded', () => {
+//     async function checkServerStatus() {
+//         try {
+//             const response = await fetch('https://api.mcstatus.io/v2/status/java/play.tenxmc.me');
+//             const data = await response.json();
+
+//             if (data.online) {
+//                 document.querySelector('.name').textContent = 'Online';
+//                 document.querySelector('.desc .red').textContent = 'Open';
+//                 document.querySelector('.online').classList.remove('off');
+//                 document.querySelector('.online').classList.add('on');
+//                 document.querySelector('.text').textContent = data.players.online;
+//             }
+//         } catch (error) {
+//             console.error('Error fetching server status:', error);
+//         }
+//     }
+
+//     // Call the function to check server status
+//     checkServerStatus();
+// });
